@@ -11,6 +11,9 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  padding: 0;
+  margin: 0;
 }
 
 a {
@@ -22,12 +25,13 @@ a:hover {
   color: #535bf2;
 }
 
-body {
-  margin: 0;
+html, body {
   display: flex;
-  place-items: center;
-  min-width: 320px;
+  flex-direction: column;
   min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
 }
 
 h1 {
@@ -52,6 +56,91 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* full viewport height */
+}
+
+.content {
+  flex: 1 0 auto;
+}
+
+.footer {
+  color: #e0e0e0;
+  background-color: #1f1f1f;
+  align-items: center;
+  padding-top: 1em;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  position: static;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: 100%;
+  box-sizing: border-box; 
+  justify-content: space-between;
+  bottom: 0;
+  left: 0;
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.4);
+}
+
+
+.footer-business-name {
+  font-size: 1.25rem;
+  font-weight: bold;
+  text-decoration: none;
+  color: #C4CED4;
+  transition: color 0.3s ease;
+}
+
+.footer-business-name:hover {
+  color: #FFFAFA;
+}
+
+.footer-link-container {
+  list-style: none;
+  padding: 1rem 0;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  margin: 0;
+}
+
+.footer-link {
+  color: #C4CED4; /* wolve silver */
+  text-decoration: none;
+  font-size: 0.85rem;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.footer-link::after {
+  content: '';
+  display: block;
+  width: 0;
+  height: 2px;
+  background: #B0E0E6; /* icy blue */
+  transition: width 0.1s;
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+}
+
+.footer-link:hover {
+  color: #FFFAFA; /* snow white */
+}
+
+.footer-link:hover::after {
+  width: 100%;
+}
+
+.copyright-notice {
+  font-size: 0.85rem;
+  color: #777;
 }
 
 @media (prefers-color-scheme: light) {
