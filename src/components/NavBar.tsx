@@ -30,14 +30,22 @@ const NavBar: React.FC = () => {
         setIsMenuOpen(false);
         }
     };
+      
+  const handleResize = () => {
+    if (window.innerWidth >= 700 && isMenuOpen) {
+      setIsMenuOpen(false); 
+    }
+  };
 
     if (isMenuOpen) {
         document.addEventListener("mousedown", handleClickOutside);
     } else {
         document.removeEventListener("mousedown", handleClickOutside);
-    }
+    }  
+    window.addEventListener("resize", handleResize);  
     return () => {
-        document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
+      window.removeEventListener("resize", handleResize);  
     };
     }, [isMenuOpen]);
 
@@ -51,9 +59,8 @@ const NavBar: React.FC = () => {
             <FontAwesomeIcon icon={faBars} />
           )}
         </button>
-        <img className="nav-logo" src={""} alt="Price Wolves Logo" />
-        <Link to="/" className="business-name" onClick={closeMenu}>
-          Price Wolves
+        <Link to="/" className="nav-logo-link" onClick={closeMenu}>
+          <img className="nav-logo" src={""} alt="Price Wolves Logo" />
         </Link>
 
         {/* Desktop menus (remain as per your CSS) */}

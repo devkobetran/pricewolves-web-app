@@ -92,17 +92,17 @@ button:focus-visible {
   font-size: 1.25rem;
   font-weight: bold;
   text-decoration: none;
-  color: #C4CED4;
+  color: #FFFAFA;
   transition: color 0.3s ease;
 }
 
 .footer-business-name:hover {
-  color: #FFFAFA;
+  color: #C4CED4;
 }
 
 .footer-link-container {
   list-style: none;
-  padding: 1rem 0;
+  padding: 0.4rem 0;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
@@ -111,14 +111,65 @@ button:focus-visible {
 }
 
 .footer-link {
-  color: #C4CED4; /* wolve silver */
+  color: #FFFAFA; /* snow white */
   text-decoration: none;
   font-size: 0.85rem;
   transition: all 0.3s ease;
   position: relative;
 }
 
-.footer-link::after {
+
+.footer-link:hover {
+  color: #C4CED4; /* wolve silver */
+}
+
+.footer-link:hover::after {
+  width: 100%;
+}
+
+.copyright-notice {
+  font-size: 0.85rem;
+  color: #888;
+}
+
+
+.header {
+  width: 100%;
+  background-color: #1f1f1f;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  padding: 0.75rem 1.5rem;
+  box-sizing: border-box;
+  z-index: 1000;
+  position: fixed;
+  top: 0;
+  left: 0
+}
+
+.nav-bar {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+.nav-link-container.desktop-menu {
+  display: flex;
+  gap: 1.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-link {
+  color: #FFFAFA; 
+  font-size: 0.85rem;
+  text-decoration: none;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.nav-link::after {
   content: '';
   display: block;
   width: 0;
@@ -130,17 +181,31 @@ button:focus-visible {
   left: 0;
 }
 
-.footer-link:hover {
-  color: #FFFAFA; /* snow white */
+.nav-link:hover {
+  color: #B0E0E6; 
 }
 
-.footer-link:hover::after {
+.nav-link:hover::after {
   width: 100%;
 }
 
-.copyright-notice {
-  font-size: 0.85rem;
-  color: #777;
+.nav-menu-icon {
+  display: none;
+}
+
+.nav-logo-link {
+  color: #FFFAFA;
+  font-size: 1.2em;
+  text-decoration: none;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.nav-logo-link:hover {
+  color: #B0E0E6; 
+}
+
+.popup-menu {
+  display: none;
 }
 
 @media (prefers-color-scheme: light) {
@@ -153,5 +218,48 @@ button:focus-visible {
   }
   button {
     background-color: #f9f9f9;
+  }
+}
+
+@media (max-width: 699.98px) { /* mobile layout */
+  .nav-menu-icon {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .nav-menu-icon svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .nav-link-container.desktop-menu {
+    display: none;
+  }
+
+  .popup-menu {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .nav-link-container {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 0.5em;
+  }
+
+  .nav-link {
+  font-size: 1rem;
   }
 }
