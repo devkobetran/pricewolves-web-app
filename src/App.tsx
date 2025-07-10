@@ -7,11 +7,13 @@ import "./index.css"
 function App() {
   return (
     <BrowserRouter>
-      <section className="app-container">
+    <section className="app-container">
+      <div className="content">
         <NavBar />
         <RoutePaths />
-        <Footer />
-      </section>
+      </div>
+      <Footer />
+    </section>
     </BrowserRouter>
   )
 }
