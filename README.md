@@ -2,6 +2,10 @@
 
 PriceWolves Customer Facing Frontend Web App | Price Tracker &amp; History App | Auto Purchase
 
+## REFERENCES
+
+- [AWS Amplify Setup Guide](https://aws.amazon.com/getting-started/hands-on/build-react-app-amplify-graphql/)
+
 ## React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
