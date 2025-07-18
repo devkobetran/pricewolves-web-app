@@ -39,22 +39,27 @@ h1 {
   line-height: 1.1;
 }
 
-button {
-  border-radius: 8px;
+.button {
+  border-radius: 3rem ;
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: #C4CED4;
+  color: #1a1a1a;
   cursor: pointer;
   transition: border-color 0.25s;
 }
-button:hover {
-  border-color: #646cff;
+
+.button:hover {
+  color: #1a1a1a;
+  background-color: #A4B0B7;
+  border-color: #2c3e50;
 }
-button:focus,
-button:focus-visible {
+
+.button:focus,
+.button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
@@ -142,7 +147,7 @@ button:focus-visible {
   z-index: 1000;
   position: fixed;
   top: 0;
-  left: 0
+  left: 0;
 }
 
 .nav-bar {
@@ -208,6 +213,18 @@ button:focus-visible {
   display: none;
 }
 
+.page-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 5em;
+}
+
+.page-text {
+  margin-bottom: 2em;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
@@ -216,7 +233,7 @@ button:focus-visible {
   a:hover {
     color: #747bff;
   }
-  button {
+  .button {
     background-color: #f9f9f9;
   }
 }
@@ -275,6 +292,20 @@ button:focus-visible {
   }
 
   .nav-link {
-  font-size: 1rem;
+    font-size: 1rem;
+  }
+
+  h1 {
+    font-size: 3em;
+  }
+
+  .page-text {
+    margin-bottom: 2em;
+  }
+}
+
+@media (max-width: 600px) { /* smaller mobile view for font scaling */
+  h1 {
+    font-size: 2.2em;
   }
 }
