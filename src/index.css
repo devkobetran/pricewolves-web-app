@@ -225,6 +225,58 @@ h1 {
   margin-bottom: 2em;
 }
 
+.add-form {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 1rem 1.5rem;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto 2rem auto;
+  padding: 2rem;
+  background-color: #1f1f1f;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  
+}
+
+.add-form label {
+  align-self: center;
+  font-weight: 500;
+  color: #f0f0f0;
+}
+
+.add-form input {
+  padding: 0.5em;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-family: inherit;
+  background-color: #2c2c2c;
+  color: #f0f0f0;
+  width: 100%;
+}
+
+.add-form input[type="checkbox"] {
+  width: auto;
+}
+
+.add-form input[type="checkbox"] {
+  justify-self: start;
+  transform: scale(1.6); 
+}
+
+.add-form button[type="submit"] {
+  font-size: 1em;
+  font-weight: 500;
+  padding: 0.75em 1.5em;
+  grid-column: span 2;
+  justify-self: center;
+  margin-top: 1.5rem;
+}
+
+.add-form .discount-group {
+  display: contents;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
@@ -302,6 +354,40 @@ h1 {
   .page-text {
     margin-bottom: 2em;
   }
+
+  .add-form {
+    max-width: 90%;
+    padding: 1.5rem; 
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .add-form button[type="submit"] {
+    grid-column: span 1;
+  }
+
+  .add-form input {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    box-sizing: border-box;
+  }
+
+  .add-form .discount-group {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    grid-column: 1 / -1;
+  }
+
+  .add-form .discount-group label {
+    margin: 0;
+  }
+
+  .add-form .discount-group input[type="checkbox"] {
+    transform: scale(1.4);
+  }
+
+  
 }
 
 @media (max-width: 600px) { /* smaller mobile view for font scaling */
