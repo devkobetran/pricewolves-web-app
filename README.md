@@ -2,9 +2,24 @@
 
 PriceWolves Customer Facing Frontend Web App | Price Tracker &amp; History App | Auto Purchase
 
-## REFERENCES
+## Developer Notes
 
-- [AWS Amplify Setup Guide](https://aws.amazon.com/getting-started/hands-on/build-react-app-amplify-graphql/)
+- [Price Wolves Confluence Docs](https://kobetran.atlassian.net/wiki/spaces/~71202094dd75410d634f5d8b40e06cc4c97a42/pages/2949140/Developer+Notes?atlOrigin=eyJpIjoiYzEzMDdlZTJhMjZmNDY3MGEyOTI3MWJjODM2OThjZGMiLCJwIjoiYyJ9)
+
+## Running Locally
+
+- Install dependencies: `npm install`
+- Render UI locally: `npm run dev`
+- Run test cases: `npm run test`
+- When updating AWS amplify code, run `npx ampx sandbox` to reflect in the AWS cloud environment.
+  - Successful Confirmation message will be:
+
+  ```
+  [Sandbox] watching for file changes...
+  File written: amplify_outputs.json
+  ```
+
+  - Exit out of terminal and test.
 
 ## React + TypeScript + Vite
 
