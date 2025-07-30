@@ -39,6 +39,11 @@ h1 {
   line-height: 1.1;
 }
 
+.required-form-item{
+  color: red;
+  margin-left: 0.25rem;
+}
+
 .button {
   border-radius: 3rem ;
   border: 1px solid transparent;
@@ -253,6 +258,10 @@ h1 {
   background-color: #2c2c2c;
   color: #f0f0f0;
   width: 100%;
+}
+
+.add-form textarea {
+  height: 10rem;
 }
 
 .add-form input[type="checkbox"] {
