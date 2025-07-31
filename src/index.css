@@ -500,3 +500,24 @@ h1 {
   }
   
 }
+
+@media (max-width: 450px) { /* mobile view */
+  h1 {
+    font-size: 1.6em;
+    text-align: center;
+  }
+
+  .page-text {
+    font-size: 1rem;
+    margin: 1em 1em 2em 1em;
+    text-align: center;
+  }
+
+  .footer-link-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: 0;
+    text-align: center;
+    gap: 0.75em 1.5em;
+  }
+}
