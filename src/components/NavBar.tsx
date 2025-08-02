@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faX } from "@fortawesome/free-solid-svg-icons";
+import SearchBar from "./SearchBar";
 
 library.add(faBars, faX);
 
@@ -32,7 +33,7 @@ const NavBar: React.FC = () => {
     };
       
   const handleResize = () => {
-    if (window.innerWidth >= 700 && isMenuOpen) {
+    if (window.innerWidth >= 1060 && isMenuOpen) {
       setIsMenuOpen(false); 
     }
   };
@@ -52,16 +53,18 @@ const NavBar: React.FC = () => {
   return (
     <header className="header">
       <nav className="nav-bar">
-        <button className="nav-menu-icon" onClick={toggleMenu}>
-          {isMenuOpen ? (
-            <FontAwesomeIcon icon={faX} />
-          ) : (
-            <FontAwesomeIcon icon={faBars} />
-          )}
-        </button>
-        <Link to="/" className="nav-logo-link" onClick={closeMenu}>
-          <img className="nav-logo" src={""} alt="Price Wolves Logo" />
-        </Link>
+        <div className="">
+          <button className="nav-menu-icon" onClick={toggleMenu}>
+            {isMenuOpen ? (
+              <FontAwesomeIcon icon={faX} />
+            ) : (
+              <FontAwesomeIcon icon={faBars} />
+            )}
+          </button>
+          <Link to="/" className="nav-logo-link" onClick={closeMenu}>
+            <img className="nav-logo" src={""} alt="Price Wolves Logo" />
+          </Link>
+        </div>
 
         {/* Desktop menus (remain as per your CSS) */}
         <ul className="nav-link-container desktop-menu">
@@ -86,6 +89,8 @@ const NavBar: React.FC = () => {
             </Link>
             </li>
         </ul>
+
+        <SearchBar/>
 
         {/* Mobile popup menu overlay */}
         {isMenuOpen && (
