@@ -9,10 +9,9 @@ and "delete" any "Todo" records.
 const schema = a.schema({
   Item: a
     .model({
-      itemId: a.id(),
       barcode: a.string(),
       itemName: a.string().required(),
-      itemImageUrl: a.url(),
+      itemImageUrl: a.url().required(),
       itemPrice: a.float().required(),
       units: a.string().required(),
       category: a.string().required(),
@@ -22,21 +21,26 @@ const schema = a.schema({
       isDiscount: a.boolean(),
       discountedPrice: a.float(),
     })
-    .identifier(["itemId"])
     .secondaryIndexes((index) => [
       index("barcode"),
       index("itemName"),
     ])
     .authorization((allow) => [allow.guest()]),
+  StoreLocation: a
+    .customType({
+      streetName: a.string().required(),
+      optionalSecondaryStreetDetails: a.string(),
+      city: a.string().required(),
+      state: a.string().required(),
+      zipCode: a.string().required(),
+    }),
   Store: a
     .model({
-      storeId: a.id(),
       storeName: a.string().required(),
-      storeLocations: a.json().array().required(),
+      storeLocations: a.ref("StoreLocation").array().required(),
       isBigChain: a.boolean().required(),
-      storeLogoUrl: a.url(),
+      storeLogoUrl: a.url().required(),
     })
-    .identifier(["storeId"])
     .authorization((allow) => [allow.guest()]),
 });
 
