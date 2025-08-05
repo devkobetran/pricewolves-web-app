@@ -102,7 +102,7 @@ const CreateNewItem: React.FC = () => {
     const sanitizedItemInputs = {
       barcode: DOMPurify.sanitize(inputs.barcode) || undefined,
       itemName: DOMPurify.sanitize(inputs.itemName),
-      itemImageUrl: DOMPurify.sanitize(safeItemImageUrl) || undefined,
+      itemImageUrl: DOMPurify.sanitize(safeItemImageUrl),
       itemPrice: itemPrice,
       units: DOMPurify.sanitize(inputs.units),
       category: DOMPurify.sanitize(inputs.category),
@@ -191,15 +191,16 @@ const CreateNewItem: React.FC = () => {
               required
             />
 
-            <label htmlFor="itemImageUrl">Item Image Url (recommended)</label>
+            <label htmlFor="itemImageUrl">Item Image Url<span className="required-form-item">*</span></label>
             <input
               type="text"
               id="itemImageUrl"
               name="itemImageUrl"
-              placeholder="Item Image url (recommended)"
+              placeholder="Item Image url (required)"
               value={DOMPurify.sanitize(inputs.itemImageUrl)}
               onChange={handleChange}
               autoComplete="off"
+              maxLength={2000}
               required
             />
 
