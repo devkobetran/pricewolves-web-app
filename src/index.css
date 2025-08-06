@@ -375,6 +375,67 @@ h1 {
   margin: 1rem 0;
 }
 
+.items-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(345px, 1fr));
+  gap: 1rem;
+  width: 90%;
+}
+
+.item-card {
+  padding: 0.5rem;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  line-height: 0.75;
+  white-space: normal;
+  word-break: break-word;
+}
+
+.item-card h2 {
+  line-height: 1.3;
+  margin-bottom: 0.3rem;
+}
+
+.item-card p {
+  line-height: 1.3;
+  margin-bottom: 0.5rem;
+  font-weight: 300;
+}
+
+.item-card img {
+  width: 100%;
+  height: auto;
+}
+
+.item-barcode {
+  font-size: 0.75rem;
+  font-weight: 250;
+}
+
+.item-category-and-store {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.item-price {
+  margin-bottom: 1.5rem;
+}
+
+.item-price p, .item-price s {
+  display: inline;
+  font-size: 1.25rem;
+  margin-right: 0.5rem;
+  font-weight: bold;
+}
+
+.item-price s {
+  font-weight: 250;
+  font-size: 1.15rem;
+}
+
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
