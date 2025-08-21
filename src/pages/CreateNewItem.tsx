@@ -4,6 +4,8 @@ import Swal from 'sweetalert2'
 import { generateClient } from "aws-amplify/data";
 import type { Schema } from "../../amplify/data/resource";
 import { isSafeUrl } from "../utils/isSafeUrl";
+import CategoriesDropdownSelect from "../custom-dropdown-select/CategoriesDropdownSelect";
+import UnitsDropdownSelect from "../custom-dropdown-select/UnitsDropdownSelect";
 
 const client = generateClient<Schema>();
 
@@ -220,29 +222,19 @@ const CreateNewItem: React.FC = () => {
             />
 
             <label htmlFor="units">Units<span className="required-form-item">*</span></label>
-            <input
-              type="text"
-              id="units"
-              name="units"
-              placeholder="Units IMPLEMENT REACT-DROPDOWN-SELECT HERE WITH PRE-DEFINED LIST & LET USER ADD THEIR OWN UNITS"
+            <UnitsDropdownSelect
               value={DOMPurify.sanitize(inputs.units)}
-              onChange={handleChange}
-              autoComplete="off"
-              maxLength={50}
-              required
+              onChange={(value: string) =>
+                setInputs((prev) => ({ ...prev, unit: value }))
+              }
             />
 
             <label htmlFor="category">Category<span className="required-form-item">*</span></label>
-            <input
-              type="text"
-              id="category"
-              name="category"
-              placeholder="Category IMPLEMENT REACT-DROPDOWN-SELECT HERE WITH PRE-DEFINED LIST & LET USER ADD THEIR OWN CATEGORIES"
+            <CategoriesDropdownSelect
               value={DOMPurify.sanitize(inputs.category)}
-              onChange={handleChange}
-              autoComplete="off"
-              maxLength={50}
-              required
+              onChange={(value: string) =>
+                setInputs((prev) => ({ ...prev, category: value }))
+              }
             />
 
             <label htmlFor="description">
