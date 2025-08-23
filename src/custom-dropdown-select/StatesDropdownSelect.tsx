@@ -1,10 +1,6 @@
 import React from "react";
 import Select from "react-dropdown-select";
-
-interface StateOption {
-  label: string;
-  value: string;
-}
+import type { StateOption } from "../types";
 
 interface StatesDropdownSelectProps {
   onChange: (value: string) => void;

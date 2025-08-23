@@ -1,25 +1,13 @@
 import React, { useState } from "react";
 import DOMPurify from "dompurify";
 import Swal from 'sweetalert2'
+import { isSafeUrl } from "../utils/isSafeUrl";
+import type { ItemInputs, Store } from "../types";
+import StoresDropdownSelect from "../custom-dropdown-select/StoresDropdownSelect";
 import { generateClient } from "aws-amplify/data";
 import type { Schema } from "../../amplify/data/resource";
-import { isSafeUrl } from "../utils/isSafeUrl";
 
 const client = generateClient<Schema>();
-
-interface ItemInputs {
-  barcode: string;
-  itemName: string;
-  itemImageUrl: string;
-  itemPrice: number;
-  units: string;
-  category: string;
-  description: string;
-  storeName: string;
-  storeId: string;
-  isDiscount: boolean;
-  discountedPrice: number;
-}
 
 const initialItemInputs: ItemInputs = {
   barcode: "",
@@ -37,6 +25,7 @@ const initialItemInputs: ItemInputs = {
 
 const CreateNewItem: React.FC = () => {
   const [inputs, setInputs] = useState<ItemInputs>(initialItemInputs);
+  const [selectedStore, setSelectedStore] = useState<Store | undefined>(undefined);
 
   // Generic change handler for text, number, and checkbox fields
   const handleChange = (
@@ -50,6 +39,10 @@ const CreateNewItem: React.FC = () => {
       ...prev,
       [name]: fieldValue,
     }));
+  };
+
+  const handleStoreSelect = (store: Store | undefined) => {
+    setSelectedStore(store);
   };
 
   // Submit to AWS Amplify Data API
@@ -99,6 +92,13 @@ const CreateNewItem: React.FC = () => {
       throw new Error("Invalid image URL upon submission")
     }
 
+    const selectedStoreId = selectedStore?.id;
+    const selectedStoreName = selectedStore?.storeName;
+    if (!selectedStoreId || !selectedStoreName) {
+      Swal.fire({ title: 'Error', text: 'Please select a store', icon: 'error' });
+      return;
+    }
+
     const sanitizedItemInputs = {
       barcode: DOMPurify.sanitize(inputs.barcode) || undefined,
       itemName: DOMPurify.sanitize(inputs.itemName),
@@ -107,8 +107,8 @@ const CreateNewItem: React.FC = () => {
       units: DOMPurify.sanitize(inputs.units),
       category: DOMPurify.sanitize(inputs.category),
       description: DOMPurify.sanitize(inputs.description) || undefined,
-      storeName: DOMPurify.sanitize(inputs.storeName),
-      storeId: DOMPurify.sanitize(inputs.storeId),
+      storeName: DOMPurify.sanitize(selectedStoreName),
+      storeId: DOMPurify.sanitize(selectedStoreId),
       isDiscount: inputs.isDiscount,
       discountedPrice: inputs.isDiscount
       ? discountedPrice
@@ -125,6 +125,7 @@ const CreateNewItem: React.FC = () => {
       })
 
       setInputs(initialItemInputs);
+      setSelectedStore(undefined);
       return;
     } catch (error) {
       console.error("Error creating item:", error);
@@ -259,29 +260,9 @@ const CreateNewItem: React.FC = () => {
             />
 
             <label htmlFor="storeName">Store Name<span className="required-form-item">*</span></label>
-            <input
-              type="text"
-              id="storeName"
-              name="storeName"
-              placeholder="IMPLEMENT REACT-DROPDOWN-SELECT HERE"
-              value={DOMPurify.sanitize(inputs.storeName)}
-              onChange={handleChange}
-              autoComplete="off"
-              maxLength={100}
-              required
-            />
-
-            <label htmlFor="storeId">StoreId<span className="required-form-item">*</span></label>
-            <input
-              type="text"
-              id="storeId"
-              name="storeId"
-              placeholder="IMPLEMENT REACT-DROPDOWN-SELECT HERE"
-              value={DOMPurify.sanitize(inputs.storeId)}
-              onChange={handleChange}
-              autoComplete="off"
-              maxLength={200}
-              required
+            <StoresDropdownSelect 
+              value={selectedStore}
+              onChange={(store: Store) => handleStoreSelect(store)}
             />
 
             <div className="discount-group">
