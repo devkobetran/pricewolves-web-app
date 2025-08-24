@@ -14,11 +14,6 @@ const Footer: React.FC = () => {
             </Link>
           </li>
           <li>
-            <Link to="/add-item" className="footer-link">
-              Add Item
-            </Link>
-          </li>
-          <li>
             <Link to="/create-new-item" className="footer-link">
               Create New Item
             </Link>
