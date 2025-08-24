@@ -74,11 +74,6 @@ const NavBar: React.FC = () => {
             </Link>
             </li>
             <li>
-            <Link to="/add-item" className="nav-link">
-                Add Item
-            </Link>
-            </li>
-            <li>
             <Link to="/create-new-item" className="nav-link">
                 Create New Item
             </Link>
@@ -99,11 +94,6 @@ const NavBar: React.FC = () => {
                 <li>
                 <Link to="/dashboard" className="nav-link" onClick={closeMenu}>
                     Dashboard
-                </Link>
-                </li>
-                <li>
-                <Link to="/add-item" className="nav-link" onClick={closeMenu}>
-                    Add Item
                 </Link>
                 </li>
                 <li>
