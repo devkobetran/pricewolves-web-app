@@ -11,7 +11,7 @@ export interface Store {
   storeLocations: StoreLocation[];
   isBigChain: boolean;
   storeLogoUrl: string;
-  id: string;
+  id?: string;
   createdAt?: string;
   updatedAt?: string;
 }

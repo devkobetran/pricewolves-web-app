@@ -18,13 +18,13 @@ const StoresDropdownSelect: React.FC<StoresDropdownSelectProps> = ({ onChange, v
     const fetchStores = async () => {
         try {
             setLoading(true);
-            const { data: stores } = await client.queries.getAllStores();
+            const { data: stores } = await client.models.Store.list();
 
             if (stores && stores.length > 0) {
                 const storeList: StoreOption[] = stores
                 .filter(store => store !== null && store !== undefined)
                 .map(store => ({
-                    label: store?.storeName || 'Unknown Store',
+                    label: store.storeName,
                     value: store as Store
                 }));
                 setStoreOptions(storeList);

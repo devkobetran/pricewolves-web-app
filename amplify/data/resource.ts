@@ -1,5 +1,4 @@
 import { type ClientSchema, a, defineData } from '@aws-amplify/backend';
-import { getAllStores } from '../functions/get-all-stores/resource';
 
 /*== STEP 1 ===============================================================
 The section below creates a Todo database table with a "content" field. Try
@@ -43,11 +42,6 @@ const schema = a.schema({
       storeLogoUrl: a.url().required(),
     })
     .authorization((allow) => [allow.guest()]),
-  getAllStores: a
-    .query()
-    .returns(a.ref("Store").array())
-    .authorization((allow) => [allow.guest()])
-    .handler(a.handler.function(getAllStores)),
 });
 
 export type Schema = ClientSchema<typeof schema>;

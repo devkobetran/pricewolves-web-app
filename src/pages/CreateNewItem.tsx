@@ -27,7 +27,7 @@ const initialItemInputs: ItemInputs = {
 
 const CreateNewItem: React.FC = () => {
   const [inputs, setInputs] = useState<ItemInputs>(initialItemInputs);
-  const [selectedStore, setSelectedStore] = useState<Store | undefined>(undefined);
+  const [selectedStore, setSelectedStore] = useState<Store>();
 
   // Generic change handler for text, number, and checkbox fields
   const handleChange = (
@@ -43,7 +43,7 @@ const CreateNewItem: React.FC = () => {
     }));
   };
 
-  const handleStoreSelect = (store: Store | undefined) => {
+  const handleStoreSelect = (store: Store) => {
     setSelectedStore(store);
   };
 
@@ -226,7 +226,7 @@ const CreateNewItem: React.FC = () => {
             <UnitsDropdownSelect
               value={DOMPurify.sanitize(inputs.units)}
               onChange={(value: string) =>
-                setInputs((prev) => ({ ...prev, unit: value }))
+                setInputs((prev) => ({ ...prev, units: value }))
               }
             />
 
