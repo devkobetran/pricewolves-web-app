@@ -1,20 +1,13 @@
 import React, { useState } from "react";
 import DOMPurify from "dompurify";
 import Swal from 'sweetalert2'
+import { isSafeUrl } from "../utils/isSafeUrl";
+import type { StoreLocation } from "../types";
+import StatesDropdownSelect from "../custom-dropdown-select/StatesDropdownSelect";
 import { generateClient } from "aws-amplify/data";
 import type { Schema } from "../../amplify/data/resource";
-import { isSafeUrl } from "../utils/isSafeUrl";
-import StatesDropdownSelect from "../custom-dropdown-select/StatesDropdownSelect";
 
 const client = generateClient<Schema>();
-
-interface StoreLocation {
-  streetName: string;
-  optionalSecondaryStreetDetails?: string;
-  city: string;
-  state: string;
-  zipCode: string;
-}
 
 interface StoreInputs {
   storeName: string;
@@ -123,7 +116,7 @@ const CreateNewStore: React.FC = () => {
         zipCode: DOMPurify.sanitize(location.zipCode)
       })),
       isBigChain: inputs.isBigChain,
-      storeLogoUrl: DOMPurify.sanitize(safeStoreLogoUrl) || undefined,
+      storeLogoUrl: DOMPurify.sanitize(safeStoreLogoUrl) || "",
     }
 
     try {
