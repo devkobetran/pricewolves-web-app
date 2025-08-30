@@ -8,6 +8,7 @@ import UnitsDropdownSelect from "../custom-dropdown-select/UnitsDropdownSelect";
 import StoresDropdownSelect from "../custom-dropdown-select/StoresDropdownSelect";
 import { generateClient } from "aws-amplify/data";
 import type { Schema } from "../../amplify/data/resource";
+import Scanner from "../components/Scanner";
 
 const client = generateClient<Schema>();
 
@@ -169,17 +170,16 @@ const CreateNewItem: React.FC = () => {
             onSubmit={handleSubmit}
             method="POST"
           >
-            <label htmlFor="barcode">Barcode (recommended)</label>
-            <input
-              type="text"
-              id="barcode"
-              name="barcode"
-              placeholder="Barcode (recommended)"
-              value={DOMPurify.sanitize(inputs.barcode)}
-              onChange={handleChange}
-              autoComplete="off"
-              maxLength={200}
-            />
+            
+          <label htmlFor="barcode">Barcode (recommended)</label>
+          <Scanner
+            value={DOMPurify.sanitize(inputs.barcode)}
+            onChange={(val) =>
+              handleChange({
+                target: { name: "barcode", value: val },
+              } as React.ChangeEvent<HTMLInputElement>)
+            }
+          />
 
             <label htmlFor="itemName">Item Name<span className="required-form-item">*</span></label>
             <input
