@@ -30,13 +30,6 @@ export default defineConfig({
       },
     }),
   ],
-  server: {
-    host: true, // allow access from network
-    port: 5173,
-    strictPort: true,
-    // replace with your actual ngrok domain
-    allowedHosts: ['b5a8ee365208.ngrok-free.app'], 
-  },
   build: {
     rollupOptions: {
       output: {

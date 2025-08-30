@@ -9,9 +9,10 @@ interface ScannerProps {
 
 const Scanner: React.FC<ScannerProps> = ({ value, onChange }) => {
   const [isScanning, setIsScanning] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   return (
-    <div>
+    <div className="barcode-scanner">
       <input
         type="text"
         id="barcode"
@@ -23,21 +24,30 @@ const Scanner: React.FC<ScannerProps> = ({ value, onChange }) => {
         maxLength={200}
       />
 
-      <button onClick={() => setIsScanning(true)}>Scan</button>
+      <button type="button" onClick={() => {
+        setIsScanning(true);
+        setLoading(true);
+      }}>Scan</button>
 
       {isScanning && (
-        <div>
-          <BarcodeScanner
-            onUpdate={(_err, result) => {
-              console.log(result);
-              if (result) {
-                const code = result.getText();
-                onChange(code); 
-                setIsScanning(false); 
-              }
-            }}
-          />
-          <button onClick={() => setIsScanning(false)}>Cancel</button>
+        <div className="barcode-scanner-overlay">
+          <div className="barcode-scanner-camera">
+            {loading && <div className="barcode-scanner-loading">Loading barcode scanner...</div>}
+            <BarcodeScanner
+              onUpdate={(_err, result) => {
+                if (loading) setLoading(false);
+                console.log(result);
+                if (result) {
+                  const code = result.getText();
+                  onChange(code); 
+                  setIsScanning(false); 
+                }
+              }}
+            />
+            <button
+              className="button"
+              onClick={() => setIsScanning(false)}>Cancel</button>
+          </div>
         </div>
       )}
     </div>
