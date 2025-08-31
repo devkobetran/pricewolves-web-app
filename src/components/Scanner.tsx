@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import BarcodeScanner from "react-qr-barcode-scanner";
+import BarcodeScanner, { BarcodeStringFormat } from "react-qr-barcode-scanner";
 
 interface ScannerProps {
   value: string;
@@ -34,6 +34,11 @@ const Scanner: React.FC<ScannerProps> = ({ value, onChange }) => {
           <div className="barcode-scanner-camera">
             {loading && <div className="barcode-scanner-loading">Loading barcode scanner...</div>}
             <BarcodeScanner
+              formats={[
+                BarcodeStringFormat.UPC_A,
+                BarcodeStringFormat.UPC_E,
+                BarcodeStringFormat.EAN_8,
+                BarcodeStringFormat.EAN_13]}
               onUpdate={(_err, result) => {
                 if (loading) setLoading(false);
                 console.log(result);
