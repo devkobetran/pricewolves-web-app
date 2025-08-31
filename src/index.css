@@ -3,7 +3,7 @@
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
+  color-scheme: dark;
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
 
@@ -303,6 +303,7 @@ h1 {
 .add-form textarea {
   height: 10rem;
   resize: none;
+  font-size: 16px;
 }
 
 .add-form input[type="checkbox"] {
@@ -391,7 +392,7 @@ h1 {
 
 .items-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(345px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 1rem;
   width: 90%;
 }
@@ -508,22 +509,6 @@ h1 {
   text-align: center;
 }
 
-
-
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  .button {
-    background-color: #f9f9f9;
-  }
-}
-
 @media (max-width: 1059.98px) { /* smaller desktop layout */
 
   .nav-bar {
@@ -632,6 +617,7 @@ h1 {
     padding-left: 0.5rem;
     padding-right: 0.5rem;
     box-sizing: border-box;
+    font-size: 16px;
   }
 
   .add-form .discount-group, .big-chain-group {
@@ -657,15 +643,32 @@ h1 {
   }
 }
 
-@media (max-width: 650px) { /* mobile view */
+@media (max-width: 650px) { /* small screens */
+  
+  /* page elements*/
   h1 {
     font-size: 2.2em;
+    text-align: center;
   }
 
+  .page-text {
+    font-size: 1rem;
+    margin: 1em 1em 2em 1em;
+    text-align: center;
+  }
+
+  .page-container {
+    margin-top: 6em;
+    padding: 0 1em;
+  }
+
+  /* navigation */
   .nav-bar {
     display: flex;
     flex-direction: column;
     align-items: stretch;
+    width: 100%;
+    gap: 0.5rem;
   }
 
   .nav-bar > div:first-child {
@@ -682,33 +685,122 @@ h1 {
   }
 
   .search-bar-container input {
+    width: 100%;
     height: 2.5rem;
+    font-size: 1rem;
+    padding: 0.25rem 1rem;
+    box-sizing: border-box;
+  }
+
+  .nav-menu-icon {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .nav-menu-icon svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .nav-link-container.desktop-menu {
+    display: none;
+  }
+
+  .popup-menu {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    box-sizing: border-box;
+    opacity: 0;
+    transform: translateX(-30px);
+    animation: fadeInMenu 0.3s ease forwards;
+  }
+
+  .nav-link-container {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 0.5em;
+  }
+
+  .nav-link {
     font-size: 1rem;
   }
 
-  .page-container {
-    margin-top: 7.5em;
+  /* forms */
+  .add-form, .create-store-form, .dashboard-form {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 1.5rem;
+    box-sizing: border-box;
   }
-  
+
+  .add-form button[type="submit"],
+  .create-store-form button[type="submit"],
+  .dashboard-form button[type="submit"] {
+    grid-column: span 1;
+    width: 100%;
+  }
+
+  .add-form input,
+  .create-store-form input,
+  .dashboard-form input {
+    padding: 0.5rem;
+    font-size: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .add-form .discount-group,
+  .big-chain-group,
+  .create-store-form .store-options,
+  .dashboard-form .form-group {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .store-locations-group,
+  .big-chain-group {
+    grid-column: span 1;
+  }
+
+  .add-form .big-chain-group [type="checkbox"] {
+    transform: scale(1.4);
+  }
+
+  /* footer good at 650px, so removed. if >3 footers, need formatting */
 }
 
-@media (max-width: 450px) { /* mobile view */
+@media (max-width: 450px) { /* small mobile screens */
   h1 {
-    font-size: 1.6em;
-    text-align: center;
+    font-size: 1.8em;
   }
 
   .page-text {
-    font-size: 1rem;
-    margin: 1em 1em 2em 1em;
-    text-align: center;
+    font-size: 0.95rem;
+    margin: 0.75em 1em 1.5em 1em;
   }
 
   .footer-link-container {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    margin: 0;
+    grid-template-columns: 1fr;
+    gap: 0.5em;
+    margin: 0 auto;
     text-align: center;
-    gap: 0.75em 1.5em;
   }
 }
+

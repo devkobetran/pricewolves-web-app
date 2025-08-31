@@ -45,6 +45,17 @@ const Dashboard: React.FC = () => {
       isDiscount: true,
       itemPrice: 30.0,
       discountedPrice: 15.0,
+      },
+    {
+      itemImageUrl: "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/9303732b-0301-4904-adc1-04e1e9ade540/NIKE+STRUCTURE+26.png",
+      itemName: "This is a 5th duplicate item to test grids",
+      barcode: "5555555555555",
+      description: "description of a shoe, this is a long description for testing 123abcdefghi.",
+      category: "Shoes",
+      storeName: "Store 1",
+      isDiscount: true,
+      itemPrice: 30.0,
+      discountedPrice: 15.0,
     },
     ];
   
