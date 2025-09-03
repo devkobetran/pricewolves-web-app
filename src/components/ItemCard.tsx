@@ -1,4 +1,4 @@
-export interface Item {
+export interface ItemCardProps {
     itemImageUrl: string;
     itemName: string;
     barcode?: string;
@@ -8,25 +8,34 @@ export interface Item {
     isDiscount: boolean;
     itemPrice: number;
     discountedPrice?: number;
-
 }
 
-const ItemCard: React.FC<{ item: Item }> = ({ item }) => {
+const ItemCard: React.FC<ItemCardProps> = ({
+  itemImageUrl,
+  itemName,
+  barcode,
+  description,
+  category,
+  storeName,
+  isDiscount,
+  itemPrice,
+  discountedPrice,
+}) => {
     return (
         <div className="item-card">
-            <img src={item.itemImageUrl} alt={item.itemName}/>
-            <h2>{item.itemName}</h2>
-            <div className="item-barcode">{item.barcode}</div>
-            <p>{item.description}</p>
-            <div className="item-category-and-store">{item.category} | {item.storeName}</div>
+            <img src={itemImageUrl} alt={itemName}/>
+            <h2>{itemName}</h2>
+            <div className="item-barcode">{barcode}</div>
+            <p>{description}</p>
+            <div className="item-category-and-store">{category} | {storeName}</div>
             <div className="item-price">
-            {item.isDiscount && item.discountedPrice !== undefined ? (
+            {isDiscount && discountedPrice !== undefined ? (
                 <div>
-                <p>${item.discountedPrice}</p>
-                <s>${item.itemPrice}</s>
+                <p>${discountedPrice}</p>
+                <s>${itemPrice}</s>
                 </div> 
             ) : (
-                <p>${item.itemPrice}</p>
+                <p>${itemPrice}</p>
             )}
             </div>
         </div>

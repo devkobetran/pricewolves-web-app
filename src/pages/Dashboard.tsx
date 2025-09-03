@@ -43,7 +43,16 @@ const Dashboard: React.FC = () => {
             <p>No items found.</p>
           ) : (
             dashboardItems.map((item) => (
-              <ItemCard key={item.barcode} item={item} />
+              <ItemCard key={item.barcode}
+                itemImageUrl={item.itemImageUrl}
+                itemName={item.itemName}
+                barcode={item.barcode}
+                description={item.description}
+                category={item.category}
+                storeName={item.storeName}
+                isDiscount={item.isDiscount}
+                itemPrice={item.itemPrice}
+                discountedPrice={item.discountedPrice} />
             ))
           )}
         </div>
