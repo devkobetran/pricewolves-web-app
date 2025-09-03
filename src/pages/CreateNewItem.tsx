@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import DOMPurify from "dompurify";
 import Swal from 'sweetalert2'
 import { isSafeUrl } from "../utils/isSafeUrl";
@@ -9,6 +10,8 @@ import StoresDropdownSelect from "../custom-dropdown-select/StoresDropdownSelect
 import { generateClient } from "aws-amplify/data";
 import type { Schema } from "../../amplify/data/resource";
 import Scanner from "../components/Scanner";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleInfo } from '@fortawesome/free-solid-svg-icons';
 
 const client = generateClient<Schema>();
 
@@ -29,6 +32,8 @@ const initialItemInputs: ItemInputs = {
 const CreateNewItem: React.FC = () => {
   const [inputs, setInputs] = useState<ItemInputs>(initialItemInputs);
   const [selectedStore, setSelectedStore] = useState<Store>();
+
+  const navigate = useNavigate();
 
   // Generic change handler for text, number, and checkbox fields
   const handleChange = (
@@ -170,6 +175,20 @@ const CreateNewItem: React.FC = () => {
             onSubmit={handleSubmit}
             method="POST"
           >
+
+          <label htmlFor="storeName">Store Name<span className="required-form-item">*</span></label>
+          <StoresDropdownSelect 
+            value={selectedStore}
+            onChange={(store: Store) => handleStoreSelect(store)}
+          />
+          <button
+            type="button"
+            className="new-store-redirect"
+            onClick={() => navigate("/create-new-store")}
+          >
+          <FontAwesomeIcon icon={faCircleInfo} />
+          Store not listed? Add here.
+          </button>
             
           <label htmlFor="barcode">Barcode (recommended)</label>
           <Scanner
@@ -249,12 +268,6 @@ const CreateNewItem: React.FC = () => {
               onChange={handleChange}
               autoComplete="off"
               maxLength={2000}
-            />
-
-            <label htmlFor="storeName">Store Name<span className="required-form-item">*</span></label>
-            <StoresDropdownSelect 
-              value={selectedStore}
-              onChange={(store: Store) => handleStoreSelect(store)}
             />
 
             <div className="discount-group">
