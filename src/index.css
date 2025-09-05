@@ -328,6 +328,27 @@ h1 {
   display: contents;
 }
 
+.new-store-redirect {
+  grid-column-start: 2; 
+  padding: 0;
+  margin-top: -0.85em;
+  border: none;
+  background: none;
+  justify-self: start;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.new-store-redirect svg {
+  margin-right: 0.25rem;
+  vertical-align: middle; 
+}
+
+.new-store-redirect:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
 .discount-group label {
   grid-column: 1;
   align-self: center;
@@ -640,6 +661,11 @@ h1 {
 
   .add-form .big-chain-group [type="checkbox"] {
     transform: scale(1.4);
+  }
+
+  .new-store-redirect {
+    grid-column-start: auto;
+    font-size: 16px;
   }
 }
 
