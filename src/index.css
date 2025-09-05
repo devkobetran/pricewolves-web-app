@@ -449,10 +449,10 @@ h1 {
   font-weight: 250;
 }
 
-.item-category-and-store {
+.item-category, .item-store {
   font-size: 1.1rem;
   font-weight: 600;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.7rem;
 }
 
 .item-price {
