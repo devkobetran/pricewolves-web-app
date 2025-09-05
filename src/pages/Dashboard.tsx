@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import ItemCard from "../components/ItemCard";
 import { generateClient } from 'aws-amplify/data';
-import { type Schema } from '../../amplify/data/resource';
+import type { Schema } from '../../amplify/data/resource';
 import type { ItemInputs } from "../types/item";
 
 const client = generateClient<Schema>();
@@ -9,6 +9,8 @@ const client = generateClient<Schema>();
 const Dashboard: React.FC = () => {
   const [dashboardItems, setDashboardItems] = useState<ItemInputs[]>([]);
   const [loading, setLoading] = useState(true);
+
+  console.log(client.models); 
 
   const fetchItems = async () => {
     try {
@@ -27,7 +29,7 @@ const Dashboard: React.FC = () => {
       setLoading(false);
     }
   };
-
+ 
   useEffect(() => {
     fetchItems();
   }, []);
