@@ -10,8 +10,6 @@ const Dashboard: React.FC = () => {
   const [dashboardItems, setDashboardItems] = useState<ItemInputs[]>([]);
   const [loading, setLoading] = useState(true);
 
-  console.log(client.models); 
-
   const fetchItems = async () => {
     try {
       setLoading(true);

@@ -27,7 +27,8 @@ const ItemCard: React.FC<ItemCardProps> = ({
             <h2>{itemName}</h2>
             <div className="item-barcode">{barcode}</div>
             <p>{description}</p>
-            <div className="item-category-and-store">{category} | {storeName}</div>
+            <div className="item-category">{category}</div>
+            <div className="item-store">{storeName}</div>
             <div className="item-price">
             {isDiscount && discountedPrice !== undefined ? (
                 <div>
