@@ -10,7 +10,7 @@ interface CategoriesDropdownSelectProps {
     value?: string;
 }
 
-const categoryOptions = [
+export const categoryOptions = [
   { label: "Meat", value: "Meat" },
   { label: "Seafood", value: "Seafood" },
   { label: "Fruits & Vegetables", value: "Fruits & Vegetables" },
