@@ -163,7 +163,9 @@ const CreateNewStore: React.FC = () => {
 
       <main className="main">
         <section className="page-container">
-          <h1 className="page-title">Create New Store</h1>
+          <div className="page-header">
+            <h1 className="page-title">Create New Store</h1>
+          </div>
           <form
             className="add-form"
             onSubmit={handleSubmit}
