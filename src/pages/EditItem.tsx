@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import DOMPurify from "dompurify";
 import Swal from 'sweetalert2'
 import { isSafeUrl } from "../utils/isSafeUrl";
@@ -15,26 +15,67 @@ import { faCircleInfo } from '@fortawesome/free-solid-svg-icons';
 
 const client = generateClient<Schema>();
 
-const initialItemInputs: ItemInputs = {
-  id: "",
-  barcode: "",
-  itemName: "",
-  itemImageUrl: "",
-  itemPrice: 0,
-  units: "",
-  category: "",
-  description: "",
-  storeName: "",
-  storeId: "",
-  isDiscount: false,
-  discountedPrice: 0,
-};
-
-const CreateNewItem: React.FC = () => {
-  const [inputs, setInputs] = useState<ItemInputs>(initialItemInputs);
+const EditItem: React.FC = () => {
+  const [inputs, setInputs] = useState<ItemInputs>();
   const [selectedStore, setSelectedStore] = useState<Store>();
-
   const navigate = useNavigate();
+  const { itemId } = useParams<{ itemId: string }>();
+
+  const fetchStoreById = async (storeId: string): Promise<Store | undefined> => {
+    try {
+      const response = await client.models.Store.get({ id: storeId });
+      if (response.data) {
+        const store = {
+          ...response.data,
+          storeLocations: Array.isArray(response.data.storeLocations)
+            ? response.data.storeLocations.filter((loc): loc is NonNullable<typeof loc> => loc !== null)
+            : [],
+        };
+        return store as Store;
+      }
+      return undefined;
+    } catch (error) {
+      console.error("Error fetching store:", error);
+      return undefined;
+    }
+  };
+
+  useEffect(() => {
+    const fetchItemAndStore = async () => {
+      if (!itemId) {
+        Swal.fire("Error", "No item ID provided.", "error");
+        return;
+      }
+      try {
+        const response = await client.models.Item.get({ id: itemId });
+        const dbItem = response.data;
+        if (dbItem) {
+        const item: ItemInputs = {
+          id: dbItem.id,
+          barcode: dbItem.barcode ?? "",
+          itemName: dbItem.itemName,
+          itemImageUrl: dbItem.itemImageUrl,
+          itemPrice: dbItem.itemPrice,
+          units: dbItem.units,
+          category: dbItem.category,
+          description: dbItem.description ?? "",
+          storeName: dbItem.storeName,
+          storeId: dbItem.storeId,
+          isDiscount: dbItem.isDiscount ?? false,
+          discountedPrice: dbItem.discountedPrice ?? 0,
+        };
+        setInputs(item);
+        const store = await fetchStoreById(item.storeId);
+        if (store) setSelectedStore(store);
+        }
+      } catch (error) {
+        console.error("Error fetching item:", error);
+        Swal.fire("Error", "Failed to load item details.", "error");
+      }
+    };
+    fetchItemAndStore();
+  }, [itemId]);
+
 
   // Generic change handler for text, number, and checkbox fields
   const handleChange = (
@@ -45,20 +86,26 @@ const CreateNewItem: React.FC = () => {
       type === 'checkbox' ? (e.target as HTMLInputElement).checked : value;
 
     setInputs((prev) => ({
-      ...prev,
+      ...prev!,
       [name]: fieldValue,
     }));
   };
 
   const handleStoreSelect = (store: Store) => {
-    setSelectedStore(store);
+    if (!store) return;
+    setSelectedStore({
+      id: store.id,
+      storeName: store.storeName,
+      storeLocations: store.storeLocations,
+      isBigChain: store.isBigChain,
+      storeLogoUrl: store.storeLogoUrl,
+    });
   };
 
-  // Submit to AWS Amplify Data API
-  const handleSubmit = async (
-   e: React.FormEvent<HTMLFormElement>
-  ): Promise<void> => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (!inputs || !selectedStore) return;
 
     const itemPrice = Number(inputs.itemPrice);
     if(isNaN(itemPrice) || itemPrice < 0) {
@@ -125,66 +172,49 @@ const CreateNewItem: React.FC = () => {
     }
 
     try {
-      await client.models.Item.create(sanitizedItemInputs);
-      const successMessage = `Item: ${sanitizedItemInputs.itemName} created successfully for $${sanitizedItemInputs.itemPrice} per ${sanitizedItemInputs.units}`;
+      await client.models.Item.update({  
+        id: itemId!,
+        ...sanitizedItemInputs,
+      });
+      const successMessage = `Item: ${sanitizedItemInputs.itemName} updated successfully`;
       Swal.fire({
-        title: 'New Item Successfully Created',
+        title: 'Item Successfully Updated',
         text: successMessage,
         icon: 'success',
-        }).then(() => {
-          navigate("/dashboard");
-        });
-
-      setInputs(initialItemInputs);
-      setSelectedStore(undefined);
-      return;
+      }).then(() => {
+        navigate("/dashboard");
+      });
     } catch (error) {
-      console.error("Error creating item:", error);
+      console.error("Error updating item:", error);
       Swal.fire({
         title: 'Something went wrong!',
-        text: 'Failed to create item. Please try again. Contact admin for support if issue persists.',
+        text: 'Failed to update item. Please try again. Contact admin for support if issue persists.',
         icon: 'error',
       })
       return;
     }
   };
 
+  if (!inputs) {
+    return <p>Loading item...</p>;
+  }
+
   return (
     <>
-      <title>Create New Item - Price Wolves</title>
-      <meta
-        name="description"
-        content="Create a brand-new item in our store catalog on Price Wolves."
-      />
-      <meta 
-        property="og:title" 
-        content="Create New Item | Price Wolves" 
-      />
-      <meta
-        property="og:description"
-        content="Create a brand-new item in our store catalog on Price Wolves."
-      />
-      <meta property="og:type" content="website" />
-      <link
-        rel="canonical"
-        href="https://pricewolves.com/create-new-item"
-      />
-
       <main className="main">
         <section className="page-container">
           <div className="page-header">
-            <h1 className="page-title">Create New Item</h1>
+            <h1 className="page-title">Edit Item</h1>
           </div>
           <form
             className="add-form"
             onSubmit={handleSubmit}
-            method="POST"
           >
 
           <label htmlFor="storeName">Store Name<span className="required-form-item">*</span></label>
-          <StoresDropdownSelect 
+          <StoresDropdownSelect
             value={selectedStore}
-            onChange={(store: Store) => handleStoreSelect(store)}
+            onChange={handleStoreSelect}
           />
           <button
             type="button"
@@ -198,10 +228,8 @@ const CreateNewItem: React.FC = () => {
           <label htmlFor="barcode">Barcode (recommended)</label>
           <Scanner
             value={DOMPurify.sanitize(inputs.barcode)}
-            onChange={(val) =>
-              handleChange({
-                target: { name: "barcode", value: val },
-              } as React.ChangeEvent<HTMLInputElement>)
+              onChange={(val: string) =>
+              setInputs((prev) => ({...prev!, barcode: val}))
             }
           />
 
@@ -250,7 +278,7 @@ const CreateNewItem: React.FC = () => {
             <UnitsDropdownSelect
               value={DOMPurify.sanitize(inputs.units)}
               onChange={(value: string) =>
-                setInputs((prev) => ({ ...prev, units: value }))
+                setInputs((prev) => ({ ...prev!, units: value }))
               }
             />
 
@@ -258,7 +286,7 @@ const CreateNewItem: React.FC = () => {
             <CategoriesDropdownSelect
               value={DOMPurify.sanitize(inputs.category)}
               onChange={(value: string) =>
-                setInputs((prev) => ({ ...prev, category: value }))
+                setInputs((prev) => ({ ...prev!, category: value }))
               }
             />
 
@@ -313,4 +341,4 @@ const CreateNewItem: React.FC = () => {
   );
 };
 
-export default CreateNewItem;
+export default EditItem;

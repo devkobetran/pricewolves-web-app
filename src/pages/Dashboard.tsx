@@ -41,7 +41,6 @@ const Dashboard: React.FC = () => {
 
   if (loading) return <p>Loading items...</p>;
   
-
   const filteredItems = dashboardItems.filter(item => {
     const categoryMatch =
       selectedCategories.length === 0 || selectedCategories.includes(item.category);
@@ -81,7 +80,7 @@ const Dashboard: React.FC = () => {
       const priceB = b.isDiscount ? b.discountedPrice : b.itemPrice;
       return (priceB ?? 0) - (priceA ?? 0);
     });
-  }
+}
 
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
@@ -123,7 +122,9 @@ const Dashboard: React.FC = () => {
               <p>No items found.</p>
             ) : (
               sortedItems.map((item) => (
-                <ItemCard key={item.barcode}
+                <ItemCard
+                  key={item.barcode}
+                  id={item.id}
                   itemImageUrl={item.itemImageUrl}
                   itemName={item.itemName}
                   barcode={item.barcode}

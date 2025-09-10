@@ -1,4 +1,5 @@
 export interface ItemInputs {
+  id: string;
   barcode: string;
   itemName: string;
   itemImageUrl: string;

@@ -55,7 +55,7 @@ const StoresDropdownSelect: React.FC<StoresDropdownSelectProps> = ({ onChange, v
             options={storeOptions}
             labelField="label"
             valueField="value"
-            values={value ? storeOptions.filter(option => option.value === value) : []}
+            values={value ? storeOptions.filter(option => option.value.id === value.id) : []}
             onChange={handleChange}
             clearable
             searchable
