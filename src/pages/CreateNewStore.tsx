@@ -246,16 +246,31 @@ const CreateNewStore: React.FC = () => {
             ))}
 
             <div className="big-chain-group">
-              <label htmlFor="isBigChain">Is this a big chain store?<span className="required-form-item">*</span></label>
-              <input
-                type="checkbox"
-                id="isBigChain"
-                name="isBigChain"
-                checked={inputs.isBigChain}
-                onChange={handleChange}
-                autoComplete="off"
-                required
-              />
+              <span>Is this a big chain store?<span className="required-form-item">*</span></span>
+              <label htmlFor="isBigChainYes">
+                <input
+                  type="radio"
+                  id="isBigChainYes"
+                  name="isBigChain"
+                  value="true"
+                  checked={inputs.isBigChain === true}
+                  onChange={() => setInputs(prev => ({ ...prev, isBigChain: true }))}
+                  autoComplete="off"
+                  required
+                /> Yes
+              </label>
+              <label htmlFor="isBigChainNo">
+                <input
+                  type="radio"
+                  id="isBigChainNo"
+                  name="isBigChain"
+                  value="false"
+                  checked={inputs.isBigChain === false}
+                  onChange={() => setInputs(prev => ({ ...prev, isBigChain: false }))}
+                  autoComplete="off"
+                  required
+                /> No
+              </label>
             </div>
 
             <label htmlFor="storeLogoUrl">Store Logo Url<span className="required-form-item">*</span></label>
