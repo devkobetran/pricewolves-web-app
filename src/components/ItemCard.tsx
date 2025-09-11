@@ -1,16 +1,22 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from "react-router-dom";
+
 export interface ItemCardProps {
-    itemImageUrl: string;
-    itemName: string;
-    barcode?: string;
-    description: string;
-    category: string;
-    storeName: string;
-    isDiscount: boolean;
-    itemPrice: number;
-    discountedPrice?: number;
+  id: string;
+  itemImageUrl: string;
+  itemName: string;
+  barcode?: string;
+  description: string;
+  category: string;
+  storeName: string;
+  isDiscount: boolean;
+  itemPrice: number;
+  discountedPrice?: number;
 }
 
 const ItemCard: React.FC<ItemCardProps> = ({
+  id,
   itemImageUrl,
   itemName,
   barcode,
@@ -21,6 +27,12 @@ const ItemCard: React.FC<ItemCardProps> = ({
   itemPrice,
   discountedPrice,
 }) => {
+  const navigate = useNavigate();
+
+  const handleEditClick = () => {
+    navigate(`/edit-item/${id}`);
+  };
+
     return (
         <div className="item-card">
             <img src={itemImageUrl} alt={itemName}/>
@@ -39,6 +51,9 @@ const ItemCard: React.FC<ItemCardProps> = ({
                 <p>${itemPrice}</p>
             )}
             </div>
+            <button className="button edit-button" onClick={handleEditClick}>
+                <FontAwesomeIcon icon={faPencilAlt} /> Edit
+            </button>
         </div>
     )
 }
