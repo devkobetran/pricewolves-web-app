@@ -20,11 +20,22 @@ const schema = a.schema({
       storeId: a.id().required(),
       isDiscount: a.boolean(),
       discountedPrice: a.float(),
+      priceHistory: a.hasMany("PriceHistory", "itemId"),
     })
     .secondaryIndexes((index) => [
       index("barcode"),
       index("itemName"),
     ])
+    .authorization((allow) => [allow.guest()]),
+  PriceHistory: a.
+    model({
+      itemId: a.id().required(),
+      itemName: a.string().required(),
+      price: a.float().required(),
+      discountedPrice: a.float(),
+      changedAt: a.string().required(),
+      item: a.belongsTo("Item", "itemId"),
+    })
     .authorization((allow) => [allow.guest()]),
   StoreLocation: a
     .customType({

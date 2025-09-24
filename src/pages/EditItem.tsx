@@ -176,6 +176,15 @@ const EditItem: React.FC = () => {
         id: itemId!,
         ...sanitizedItemInputs,
       });
+
+      const newHistory = await client.models.PriceHistory.create({
+        itemId: itemId!,
+        itemName: sanitizedItemInputs.itemName,
+        price: sanitizedItemInputs.itemPrice,
+        discountedPrice: sanitizedItemInputs.isDiscount ? sanitizedItemInputs.discountedPrice : undefined,
+        changedAt: new Date().toISOString(),
+      });
+      console.log("created pricehistory:", newHistory);
       const successMessage = `Item: ${sanitizedItemInputs.itemName} updated successfully`;
       Swal.fire({
         title: 'Item Successfully Updated',

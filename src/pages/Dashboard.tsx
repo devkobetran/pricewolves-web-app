@@ -21,12 +21,15 @@ const Dashboard: React.FC = () => {
     try {
       setLoading(true);
       const { data: items } = await client.models.Item.list();
-      if (items && items.length > 0) {
-        setDashboardItems(items as ItemInputs[]);
-      } else {
-        setDashboardItems([]);
-        console.log("Issue: No items available");
-      }
+      const itemsWithHistory = await Promise.all(
+        (items ?? []).map(async (item) => {
+          const { data: history } = await client.models.PriceHistory.list({
+            filter: { itemId: { eq: item.id } }
+          });
+          return { ...item, priceHistory: history ?? [] };
+        })
+      );
+      setDashboardItems(itemsWithHistory as ItemInputs[]);
     } catch (error) {
       console.error('Error fetching stores:', error);
       setDashboardItems([]);
@@ -133,7 +136,8 @@ const Dashboard: React.FC = () => {
                   storeName={item.storeName}
                   isDiscount={item.isDiscount}
                   itemPrice={item.itemPrice}
-                  discountedPrice={item.discountedPrice} />
+                  discountedPrice={item.discountedPrice}
+                  priceHistory={item.priceHistory}/>
               ))
             )}
           </div>

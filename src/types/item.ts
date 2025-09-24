@@ -1,3 +1,5 @@
+import type { PriceHistory } from "./priceHistory";
+
 export interface ItemInputs {
   id: string;
   barcode: string;
@@ -11,4 +13,5 @@ export interface ItemInputs {
   storeId: string;
   isDiscount: boolean;
   discountedPrice: number;
+  priceHistory?: PriceHistory[];
 }
