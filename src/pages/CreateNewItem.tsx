@@ -125,7 +125,21 @@ const CreateNewItem: React.FC = () => {
     }
 
     try {
-      await client.models.Item.create(sanitizedItemInputs);
+      const result = await client.models.Item.create(sanitizedItemInputs);
+      if (!result?.data) {
+        throw new Error("no data returned on create new item");
+      }
+      const newItem = result.data;
+      await client.models.PriceHistory.create({
+        itemId: newItem.id, 
+        itemName: sanitizedItemInputs.itemName,
+        price: sanitizedItemInputs.itemPrice,
+        discountedPrice: sanitizedItemInputs.isDiscount
+          ? sanitizedItemInputs.discountedPrice
+          : undefined,
+        changedAt: new Date().toISOString(),
+      });
+
       const successMessage = `Item: ${sanitizedItemInputs.itemName} created successfully for $${sanitizedItemInputs.itemPrice} per ${sanitizedItemInputs.units}`;
       Swal.fire({
         title: 'New Item Successfully Created',

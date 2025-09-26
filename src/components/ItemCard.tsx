@@ -120,7 +120,7 @@ const ItemCard: React.FC<ItemCardProps> = ({
         type: 'time',
         time: {
           unit: 'day',
-          tooltipFormat: 'Pp',
+          tooltipFormat: 'MM/dd/yy hh:mm:ss a',
           displayFormats: {
             day: 'MM/dd/yy',
           },
