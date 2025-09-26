@@ -628,6 +628,20 @@ h1 {
   margin-left: auto;
 }
 
+.price-history h4 {
+  margin-top: 0;
+}
+
+.price-history-graph {
+  min-width: 100%;
+  margin-bottom: 1rem;
+}
+
+.price-history-table td {
+  padding: 0.25rem 0.75rem;
+}
+
+
 @media (max-width: 1059.98px) { /* smaller desktop layout */
   .nav-bar {
     display: grid;
