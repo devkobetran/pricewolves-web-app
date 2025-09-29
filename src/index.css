@@ -140,6 +140,27 @@ h1 {
 .copyright-notice {
   font-size: 0.85rem;
   color: #888;
+  margin: 0;
+}
+
+.contributor-info {
+  margin-bottom: 1rem;
+  margin-top: 0.2rem;
+  text-align: center;
+}
+
+.contributor-info p {
+  font-size: 0.85rem;
+  margin: 0;
+  color: #FFFAFA;
+}
+
+.contributor-info a {
+  color: #FFFAFA;
+  text-decoration: underline;
+}
+.contributor-info a:hover {
+  color: #C4CED4;
 }
 
 
