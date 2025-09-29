@@ -27,6 +27,14 @@ const Footer: React.FC = () => {
       <p className="copyright-notice">
         &copy; {new Date().getFullYear()} Price Wolves. All rights reserved.
       </p>
+      <div className="contributor-info">
+        <p>Software Engineer Contributors </p>
+        <p>
+          <a href="https://www.linkedin.com/in/kobetran/">Kobe Tran</a>
+          &nbsp;&amp;&nbsp;
+          <a href="https://www.linkedin.com/in/jecheung9/">Jeffrey Cheung</a>
+        </p>
+      </div>
     </footer>
   );
 };
