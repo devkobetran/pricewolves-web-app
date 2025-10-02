@@ -1,5 +1,5 @@
-import { describe, it, expect } from 'vitest'
-import { isSafeUrl } from './isSafeUrl'
+import { describe, it, expect } from 'vitest';
+import { isSafeUrl } from './isSafeUrl';
 
 // Some private-IP examples
 const privateIPv4   = 'https://10.0.5.2';
