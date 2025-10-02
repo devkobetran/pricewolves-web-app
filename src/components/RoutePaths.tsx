@@ -6,7 +6,7 @@ const DashboardPage = lazy(() => import("../pages/Dashboard.tsx"))
 const CreateNewItemPage = lazy(() => import("../pages/CreateNewItem.tsx"))
 const CreateNewStorePage = lazy(() => import("../pages/CreateNewStore.tsx"))
 const NotFoundPage = lazy(() => import("../pages/NotFound.tsx"))
-const EditItemPage = lazy(() => import("../pages/Edititem.tsx"))
+const EditItemPage = lazy(() => import("../pages/EditItem.tsx"))
 
 const RoutePaths: React.FC = () => {
   return (

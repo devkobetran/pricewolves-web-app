@@ -9,8 +9,9 @@ PriceWolves Customer Facing Frontend Web App | Price Tracker &amp; History App |
 ## Running Locally
 
 - Install dependencies: `npm install`
-- Render UI locally: `npm run dev`
+- Run build locally to ensure app works: `npm run build`
 - Run test cases: `npm run test`
+- Render UI locally: `npm run dev`
 - When updating AWS amplify code, run `npx ampx sandbox` to reflect in the AWS cloud environment.
   - Successful Confirmation message will be:
 
